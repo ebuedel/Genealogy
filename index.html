@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>The Coolest Site on the Internet</title>
+
+    <script src='js/svg-pan-zoom.js'></script>
+    <script src='js/angular.min.js'></script>
+    <script src='js/controller.js'></script>
+    <link rel='stylesheet' type='text/css' href='css/main.css'>
+</head>
+
+<body>
+    <div ng-app='genealogy' ng-controller='genealogyCtrl'>
+    <h1>Genealogy Proof of Concept</h1>
+    <svg id='mystuff' height='600' width='1200' xmlns="http://www.w3.org/2000/svg" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; border: 1px solid black;" viewBox="0 0 3000 3000" version="1.1">
+        <g ng-repeat='p in people'>
+        <line x1='{{ initialX1 + p.dx }}' y1='{{ initialY + p.dy }}' x2='{{ nameLength + p.dx }}' y2='{{ initialY + p.dy }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
+        <a href=''><text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy - lineWidth }}' font-size='{{ nameFontSize }}' fill='red'>{{ p.name }}</text></a>
+        <line x1='{{ initialX1 + p.dx - lineWidth / 2 }}' y1='{{ initialY + p.dy - lineWidth / 2 }}' x2='{{ initialX1 + p.dx - lineWidth / 2 }}' y2='{{ initialY + p.dy + p.vertBar - lineWidth / 2 }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 12 }}' font-size='{{ infoFontSize }}' fill='black'>born: {{ p.birth }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 24 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pob }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 40 }}' font-size='{{ infoFontSize }}' fill='black'>marr: {{ p.wed }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 52 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pow }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 70 }}' font-size='{{ infoFontSize }}' fill='black'>died: {{ p.death }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 82 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pod }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 98 }}' font-size='{{ infoFontSize }}' fill='black'>bur: {{ p.bur }}</text>
+        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 110 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pobur }}</text>
+        </g>
+    </svg>
+    </div>
+
+    <script>
+      // Don't use window.onLoad like this in production, because it can only listen to one function.
+      window.onload = function() {
+        // Expose to window namespase for testing purposes
+        window.zoomTiger = svgPanZoom('#mystuff', {
+          zoomEnabled: true,
+          controlIconsEnabled: true,
+          fit: true,
+          center: true,
+          // viewportSelector: document.getElementById('demo-tiger').querySelector('#g4') // this option will make library to misbehave. Viewport should have no transform attribute
+        });
+      };
+    </script>
+</body>
+
+</html>

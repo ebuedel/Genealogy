@@ -1,0 +1,4 @@
+/* make genealogy grid take up entire screen */
+div {
+    width: 100%;
+}
