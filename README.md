@@ -10,4 +10,4 @@ There are many problems with the traditional practice of maintaining physical pa
 * Often times it is not possible to connect all of the pages properly since the graph's scale is reset every 4-5 generations to maintain readability.
 
 ## Example
-To view this code in action, visit [my website](https://ericbuedel.com).  You can alternatively download the code and run it locally.
+To view this code in action, visit [my website](http://ericbuedel.com).  Alternatively, you can download the code and run it locally.

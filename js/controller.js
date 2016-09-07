@@ -20,16 +20,18 @@ app.controller('genealogyCtrl', function($scope) {
     $scope.initialY = 300;
 
     // initial y-coordinate of the first person
-    $scope.initialX1 = 0;
+    $scope.initialX = 0;
 
     // array containing all members of the tree
     $scope.people = [];
     
     /*
+    *
     *   add a new member to the tree
     *
     *   ---PARAMETERS---
     *   name:  New member's full name
+    *   genealogyNum: # of person on tree (root is 1, father of root is 2, mother 3, paternal grandfather 4, etc...)
     *   birth: Date of birth
     *   pob:   Location of birth
     *   marr:  Date of marriage
@@ -38,9 +40,9 @@ app.controller('genealogyCtrl', function($scope) {
     *   pod:   Location of death
     *   bur:   Name of cemetery where buried
     *   pobur: Location of cemetery
-    *   genealogyNum: # of person on tree (root is 1, father of root is 2, mother 3, paternal grandfather 4, etc...)
+    *
     */
-    var push = function(name, birth, pob, marr, pom, death, pod, bur, pobur, genealogyNum) {
+    var push = function(name, genealogyNum, birth, pob, marr, pom, death, pod, bur, pobur) {
         var inner = Math.floor(Math.log2(genealogyNum));
         var denom = Math.pow(2, inner);
 
@@ -51,20 +53,23 @@ app.controller('genealogyCtrl', function($scope) {
         if (genealogyNum % 2 === 0) {
             vert = 2 * $scope.firstVert / denom + 4;
         }
+
         $scope.people.push({'name':name,
-                        'birth':birth,
-                        'pob':pob,
-                        'marr':marr,
-                        'pom':pom,
-                        'death':death,
-                        'pod':pod,
-                        'num':genealogyNum,
-                        'dx':deltaX,
-                        'dy':deltaY,
-                        'vertBar':vert,
-                        'visible':'none',
-                        'visibleRect':'none',
-                        'visibleLink':'none'
+                            'birth':birth,
+                            'pob':pob,
+                            'marr':marr,
+                            'pom':pom,
+                            'death':death,
+                            'pod':pod,
+                            'bur':bur,
+                            'pobur':pobur,
+                            'num':genealogyNum,
+                            'dx':deltaX,
+                            'dy':deltaY,
+                            'vertBar':vert,
+                            'visible':'none',
+                            'visibleRect':'none',
+                            'visibleLink':'none'
         });
     };
 
@@ -82,14 +87,14 @@ app.controller('genealogyCtrl', function($scope) {
 
     // add everyone to the tree
     // thinking of a better way to accomplish this still, but this works for a proof of concept
-    push('Eric Austin Buedel', '', '', '', '', '', '', '1');
-    push('Steven Wayne Buedel, D.D.S.', '', '', '', '', '', '', '2');
-    push('Andora Davis', '', '', '', '', '', '', '3');
-    push('Jerry Lewis Buedel', '', '', '', '', '', '', '4');
-    push('Betty Lee Freudenberger', '', '', '', '', '', '', '5');
-    push('Henry Thomas Davis, Sr.', '', '', '', '', '', '', '6');
-    push('Harriet Irene Couch', '', '', '', '', '', '', '7');
+    push('Eric Austin Buedel', '1');
+    push('Steven Wayne Buedel, D.D.S.', '2');
+    push('Andora Davis', '3');
+    push('Jerry Lewis Buedel', '4');
+    push('Betty Lee Freudenberger', '5');
+    push('Henry Thomas Davis, Sr.', '6');
+    push('Harriet Irene Couch', '7');
     for (var i = 8; i <= 127; i++) {
-        push('', '', '', '', '', '', '', i);
+        push('', i);
     }
 });

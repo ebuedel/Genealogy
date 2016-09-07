@@ -7,6 +7,7 @@
     <script src='node_modules/svg-pan-zoom/dist/svg-pan-zoom.js'></script>
     <script src='node_modules/angular/angular.js'></script>
     <script src='js/controller.js'></script>
+
     <link rel='stylesheet' type='text/css' href='css/main.css'>
 </head>
 
@@ -14,21 +15,21 @@
     <div ng-app='genealogy' ng-controller='genealogyCtrl'>
     <h1 align=center>Genealogy Proof of Concept v2</h1>
 
-    <svg id='mystuff' height='600' width='1200' xmlns="http://www.w3.org/2000/svg" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; border: 1px solid black;" viewBox="0 0 3000 3000" version="1.1">
+    <svg id='mystuff' height='600' width='1200' xmlns="http://www.w3.org/2000/svg" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; border: 1px solid black" viewBox="0 0 3000 3000" version="1.1">
         <g ng-repeat='p in people'>
-        <line x1='{{ initialX1 + p.dx }}' y1='{{ initialY + p.dy }}' x2='{{ nameLength + p.dx }}' y2='{{ initialY + p.dy }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
-        <a href='' ng-click='changeVisibility(p)'><text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy - lineWidth }}' font-size='{{ nameFontSize }}' fill='#4c4cff' class='dropdown'>{{ p.name }}</text></a>
-        <line x1='{{ initialX1 + p.dx - lineWidth / 2 }}' y1='{{ initialY + p.dy - lineWidth / 2 }}' x2='{{ initialX1 + p.dx - lineWidth / 2 }}' y2='{{ initialY + p.dy + p.vertBar - lineWidth / 2 }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
-        <rect x='{{ initialX1 + p.dx + 1 }}' y='{{ initialY + p.dy + 3 }}' height='136' width='{{ nameLength - 2 }}' fill='{{ p.visibleRect }}'/>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 16 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>birth: {{ p.birth }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 28 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pob }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 44 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>marriage: {{ p.marr }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 56 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pom }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 74 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>death: {{ p.death }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 86 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pod }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 102 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>burial: {{ p.bur }}</text>
-        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 114 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pobur }}</text>
-        <a href='database/{{ p.name }}.html' target='_blank'><text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 132 }}' font-size='{{ infoFontSize }}' fill='{{ p.visibleLink }}'>more information</text></a>
+        <line x1='{{ initialX + p.dx }}' y1='{{ initialY + p.dy }}' x2='{{ nameLength + p.dx }}' y2='{{ initialY + p.dy }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
+        <a href='' ng-click='changeVisibility(p)'><text x='{{ initialX + p.dx }}' y='{{ initialY + p.dy - lineWidth }}' font-size='{{ nameFontSize }}' fill='#4c4cff' class='dropdown'>{{ p.name }}</text></a>
+        <line x1='{{ initialX + p.dx - lineWidth / 2 }}' y1='{{ initialY + p.dy - lineWidth / 2 }}' x2='{{ initialX + p.dx - lineWidth / 2 }}' y2='{{ initialY + p.dy + p.vertBar - lineWidth / 2 }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
+        <rect x='{{ initialX + p.dx + 1 }}' y='{{ initialY + p.dy + 3 }}' height='136' width='{{ nameLength - 2 }}' fill='{{ p.visibleRect }}'/>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 16 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>birth: {{ p.birth }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 28 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pob }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 44 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>marriage: {{ p.marr }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 56 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pom }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 74 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>death: {{ p.death }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 86 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pod }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 102 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>burial: {{ p.bur }}</text>
+        <text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 114 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pobur }}</text>
+        <a href='database/{{ p.name }}.html' target='_blank'><text x='{{ initialX + p.dx + lineWidth }}' y='{{ initialY + p.dy + 132 }}' font-size='{{ infoFontSize }}' fill='{{ p.visibleLink }}'>more information</text></a>
         </g>
     </svg>
 
