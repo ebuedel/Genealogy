@@ -5,7 +5,7 @@ app.controller('genealogyCtrl', function($scope) {
     $scope.numGenerations = 1;
     $scope.nameFontSize = 20;
     $scope.infoFontSize = 12;
-    $scope.firstVert = 1000;
+    $scope.firstVert = 2000;
     $scope.lineWidth = 4;
 
     $scope.initialY = 300;
@@ -34,9 +34,22 @@ app.controller('genealogyCtrl', function($scope) {
                         'num':genealogyNum,
                         'dx':deltaX,
                         'dy':deltaY,
-                        'vertBar':vert
+                        'vertBar':vert,
+                        'visible':'none',
+                        'visibleRect':'none',
+                        'visibleLink':'none'
         });
     };
+
+    $scope.changeVisibility = function(person) {
+        if (person.visible === 'none') {
+            person.visible = 'black';
+            person.visibleRect = '#d3d3d3';
+            person.visibleLink = 'blue';
+        } else {
+            person.visible = person.visibleRect = person.visibleLink = 'none';
+        }
+    }
 
     push('Eric Austin Buedel', '', '', '', '', '', '', '1');
     push('Steven Wayne Buedel, D.D.S.', '', '', '', '', '', '', '2');
@@ -45,4 +58,7 @@ app.controller('genealogyCtrl', function($scope) {
     push('Betty Lee Freudenberger', '', '', '', '', '', '', '5');
     push('Henry Thomas Davis, Sr.', '', '', '', '', '', '', '6');
     push('Harriet Irene Couch', '', '', '', '', '', '', '7');
+    for (var i = 8; i <= 127; i++) {
+        push('', '', '', '', '', '', '', i);
+    }
 });

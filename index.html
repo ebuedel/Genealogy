@@ -12,37 +12,41 @@
 
 <body>
     <div ng-app='genealogy' ng-controller='genealogyCtrl'>
-    <h1>Genealogy Proof of Concept</h1>
+    <h1 align=center>Genealogy Proof of Concept v2</h1>
+
     <svg id='mystuff' height='600' width='1200' xmlns="http://www.w3.org/2000/svg" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; border: 1px solid black;" viewBox="0 0 3000 3000" version="1.1">
         <g ng-repeat='p in people'>
         <line x1='{{ initialX1 + p.dx }}' y1='{{ initialY + p.dy }}' x2='{{ nameLength + p.dx }}' y2='{{ initialY + p.dy }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
-        <a href=''><text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy - lineWidth }}' font-size='{{ nameFontSize }}' fill='red'>{{ p.name }}</text></a>
+        <a href='' ng-click='changeVisibility(p)'><text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy - lineWidth }}' font-size='{{ nameFontSize }}' fill='#4c4cff' class='dropdown'>{{ p.name }}</text></a>
         <line x1='{{ initialX1 + p.dx - lineWidth / 2 }}' y1='{{ initialY + p.dy - lineWidth / 2 }}' x2='{{ initialX1 + p.dx - lineWidth / 2 }}' y2='{{ initialY + p.dy + p.vertBar - lineWidth / 2 }}' style='stroke: black; stroke-width: {{ lineWidth }}' />
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 12 }}' font-size='{{ infoFontSize }}' fill='black'>born: {{ p.birth }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 24 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pob }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 40 }}' font-size='{{ infoFontSize }}' fill='black'>marr: {{ p.wed }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 52 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pow }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 70 }}' font-size='{{ infoFontSize }}' fill='black'>died: {{ p.death }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 82 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pod }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 98 }}' font-size='{{ infoFontSize }}' fill='black'>bur: {{ p.bur }}</text>
-        <text x='{{ initialX1 + p.dx }}' y='{{ initialY + p.dy + 110 }}' font-size='{{ infoFontSize }}' fill='black'>place: {{ p.pobur }}</text>
+        <rect x='{{ initialX1 + p.dx + 1 }}' y='{{ initialY + p.dy + 3 }}' height='136' width='{{ nameLength - 2 }}' fill='{{ p.visibleRect }}'/>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 16 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>birth: {{ p.birth }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 28 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pob }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 44 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>marriage: {{ p.wed }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 56 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pow }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 74 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>death: {{ p.death }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 86 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pod }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 102 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>burial: {{ p.bur }}</text>
+        <text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 114 }}' font-size='{{ infoFontSize }}' fill='{{ p.visible }}'>location: {{ p.pobur }}</text>
+        <a href='database/{{ p.name }}.html' target='_blank'><text x='{{ initialX1 + p.dx + lineWidth }}' y='{{ initialY + p.dy + 132 }}' font-size='{{ infoFontSize }}' fill='{{ p.visibleLink }}'>more information</text></a>
         </g>
     </svg>
+
     </div>
 
     <script>
-      // Don't use window.onLoad like this in production, because it can only listen to one function.
       window.onload = function() {
-        // Expose to window namespase for testing purposes
         window.zoomTiger = svgPanZoom('#mystuff', {
-          zoomEnabled: true,
-          controlIconsEnabled: true,
+          dblClickZoomEnabled: false,
           fit: true,
-          center: true,
-          // viewportSelector: document.getElementById('demo-tiger').querySelector('#g4') // this option will make library to misbehave. Viewport should have no transform attribute
+          maxZoom: 20,
+          minZoom: 0.1,
+          zoomEnabled: true,
+          zoomScaleSensitivity: 0.08
         });
       };
     </script>
+
 </body>
 
 </html>
